@@ -7,9 +7,15 @@ class CategoryPage extends StatefulWidget {
 
 class _CategoryPageState extends State<CategoryPage> {
   @override
+  void initState() {
+    super.initState();
+    print('category init');
+  }
+  
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return Center(
+      child: Text('category'),
     );
   }
 }

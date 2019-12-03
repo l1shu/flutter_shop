@@ -18,13 +18,14 @@ class _IndexPageState extends State<IndexPage> {
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.shopping_cart), title: Text('购物车')),
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.profile_circled), title: Text('会员中心')),
   ];
-  final List tabBodies = [
+  final List<Widget> tabBodies = [
     HomePage(),
     CategoryPage(),
     CartPage(),
     MemberPage()
   ];
   int curIndex = 0;
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +38,19 @@ class _IndexPageState extends State<IndexPage> {
         type: BottomNavigationBarType.fixed,
         currentIndex: curIndex,
         onTap: (int index) {
+          _pageController.jumpToPage(index);
+        },
+      ),
+      // body: tabBodies[curIndex],
+      body: PageView(
+        controller: _pageController,
+        children: tabBodies,
+        onPageChanged: (int index) {
           setState(() {
             curIndex = index;
           });
         },
-      ),
-      body: tabBodies[curIndex],
+      )
     );
   }
 }
