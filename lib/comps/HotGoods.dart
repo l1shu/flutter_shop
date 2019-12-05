@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_shop/models/homePageBelowModel.dart';
-import 'package:flutter_shop/service/service_methods.dart';
 
 class HotGoods extends StatefulWidget {
+  final List hotGoodsList;
+
+  HotGoods({Key key, this.hotGoodsList}) : super(key: key); 
+
   @override
   _HotGoodsState createState() => _HotGoodsState();
 }
 
 class _HotGoodsState extends State<HotGoods> {
-  HomePageBelowModel homePageBelowContent;
-  int page = 1;
 
   Widget _hotTitle = Container(
     margin: EdgeInsets.only(top: 20.0),
@@ -26,8 +27,8 @@ class _HotGoodsState extends State<HotGoods> {
   );
 
   Widget _wrapList() {
-    if (homePageBelowContent.belowList.length > 0) {
-      List<Widget> list = homePageBelowContent.belowList.map((item) {
+    if (widget.hotGoodsList.length > 0) {
+      List<Widget> list = widget.hotGoodsList.map((item) {
         return InkWell(
           onTap: () {},
           child: Container(
@@ -70,23 +71,13 @@ class _HotGoodsState extends State<HotGoods> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getDataFromApi('homePageBelowConten', data: {'page': page}),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          homePageBelowContent = HomePageBelowModel.fromJson(snapshot.data['data']);
-          return Container(
-            child: Column(
-              children: <Widget>[
-                _hotTitle,
-                _wrapList()
-              ],
-            ),
-          );
-        } else {
-          return CircularProgressIndicator();
-        }
-      },
+    return Container(
+      child: Column(
+        children: <Widget>[
+          _hotTitle,
+          _wrapList()
+        ],
+      ),
     );
   }
 }

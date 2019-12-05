@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import '../config.dart';
 
 Future getDataFromApi(String url, {dynamic data}) async {
+  print('开始接口请求：$url');
   try {
     Dio dio = Dio(BaseOptions(
       contentType: Headers.formUrlEncodedContentType,
