@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop/comps/AdBanner.dart';
 import 'package:flutter_shop/comps/FloorContent.dart';
 import 'package:flutter_shop/comps/FloorTitle.dart';
+import 'package:flutter_shop/comps/HotGoods.dart';
 import 'package:flutter_shop/comps/Recommend.dart';
 import 'package:flutter_shop/comps/ShopInfo.dart';
 import 'package:flutter_shop/comps/swiperWidget.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
   Widget build(BuildContext context) {
     super.build(context);
     return FutureBuilder(
-      future: getHomePageContent(),
+      future: getDataFromApi('homePageContext', data: {'lon':'115.02932','lat':'35.76189'}),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           hpcm.HomePageContentModel homePageContent = hpcm.HomePageContentModel.fromJson(snapshot.data['data']);
@@ -40,7 +41,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                 FloorTitle(floorPic: homePageContent.floor2Pic,),
                 FloorContent(floorGoodsList: homePageContent.floor2List,),
                 FloorTitle(floorPic: homePageContent.floor3Pic,),
-                FloorContent(floorGoodsList: homePageContent.floor3List,)
+                FloorContent(floorGoodsList: homePageContent.floor3List,),
+                HotGoods()
               ],
             ),
           );

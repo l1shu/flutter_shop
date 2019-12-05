@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import '../config.dart';
 
-Future getHomePageContent() async {
+Future getDataFromApi(String url, {dynamic data}) async {
   try {
     Dio dio = Dio(BaseOptions(
       contentType: Headers.formUrlEncodedContentType,
       responseType: ResponseType.json
     ));
-    Map<String, String> formData = {'lon':'115.02932','lat':'35.76189'};
-    Response res = await dio.post(servicePath['homePageContext'], data:formData);
+    
+    Response res = await dio.post(servicePath[url], data: data);
     if (res.statusCode == 200) {
       return json.decode(res.data);
     } else {
